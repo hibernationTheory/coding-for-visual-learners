@@ -1,20 +1,21 @@
-var canvasWidth = 800;
-var canvasHeight = 300;
-
 function setup() {
-	createCanvas(canvasWidth, canvasHeight);
-	rectMode(CENTER);
+  createCanvas(800, 300);
+  rectMode(CENTER);
 }
 
 function draw() {
-	background(1, 186, 240);
-	fill(237, 34, 93);
-	noStroke();
+  background(1, 186, 240);
 
-	var x = canvasWidth / 2;
-	var y = canvasHeight / 2;
+  // declaration of variables
+  var x = 400;
+  var y = 150;
 
-	ellipse(x, y, 200, 200);
-	fill(255);
-	rect(x, y, 150, 30);
+  // circle
+  fill(237, 34, 93);
+  noStroke();
+  ellipse(x, y, 200, 200);
+
+  // rectangle
+  fill(255);
+  rect(x, y, 150, 30);
 }

@@ -1,27 +1,26 @@
-function setup() { 
-	createCanvas(800, 300);
-	rectMode(CENTER);
-	noStroke();
-	angleMode(DEGREES);
-} 
-
-function draw() { 
-	background(220);
-	
-	fill(237, 34, 93);
-	rectC(width/2, height/2, 150, 150, 45);
-
-	fill(255, 255, 255);
-	rectC(width/2, height/2, 75, 75, 30);
+function setup() {
+  createCanvas(800, 300);
+  rectMode(CENTER);
+  noStroke();
+  angleMode(DEGREES);
 }
 
-function rectC(x, y, width, height, rotation) {
-	if (rotation === undefined) {
-		rotation = 0;
-	}
-	push();
-	translate(x, y);
-	rotate(rotation);
-	rect(0, 0, width, height);
-	pop();
+function draw() {
+  background(220);
+
+  push();
+  translate(width / 2, height / 2);
+  rotate(45);
+  // pink rectangle
+  fill(237, 34, 93);
+  rect(0, 0, 150, 150);
+  pop();
+
+  push();
+  translate(width / 2, height / 2);
+  rotate(30);
+  // white rectangle
+  fill(255, 255, 255);
+  rect(0, 0, 75, 75);
+  pop();
 }

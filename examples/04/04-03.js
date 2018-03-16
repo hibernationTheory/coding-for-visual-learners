@@ -1,13 +1,12 @@
 function setup() {
-	createCanvas(800, 300);
-	rectMode(CENTER);
+  createCanvas(800, 300);
 }
 
 function draw() {
-	background(1, 186, 240);
-	fill(237, 34, 93);
-	noStroke();
-	ellipse(400, 150, 200, 200);
-	fill(255);
-	rect(400, 150, 150, 30);
+  background(220);
+
+  var offset = 150;
+  ellipse(100 + offset, 200, 50, 50);
+  ellipse(200 + offset, 200, 50, 50);
+  rect(50 + offset, 160, 200, 20);
 }
