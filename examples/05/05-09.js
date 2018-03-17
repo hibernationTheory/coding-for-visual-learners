@@ -1,9 +1,6 @@
-var size;
-
 function setup() {
   createCanvas(800, 300);
   rectMode(CENTER);
-  size = 200;
 }
 
 function draw() {
@@ -12,14 +9,16 @@ function draw() {
   // declaration of variables
   var x = width / 2;
   var y = height / 2;
+  // increment the size with the current frameCount value
   var size = 200;
-  if (frameCount < 30) {
+  var limit = 30;
+  if (frameCount < limit) {
     size = size + frameCount;
   } else {
-    size = size + 30;
+    size = size + limit;
   }
 
-  // ellipse
+  // circle
   fill(237, 34, 93);
   noStroke();
   ellipse(x, y, size, size);
