@@ -1,6 +1,6 @@
 var guessItem = null;
 // controls the frequency that a new random number is generated.
-var interval = 100;
+var interval = 60; // changing this to make the game feel faster.
 // an array to store solution values
 var results = [];
 var solution = null;
@@ -19,7 +19,8 @@ function draw() {
     displayGameOver(gameScore);
     return;
   }
-  background(220);
+
+  background(220); // black background
   if (frameCount === 1 || frameCount % interval === 0) {
     solution = null;
     guessItem = new GuessItem(width / 2, height / 2, 1);
@@ -29,11 +30,43 @@ function draw() {
     guessItem.render();
   }
 
+  if (solution == true || solution === false) {
+    // displaying a text on screen instead of flat color.
+    solutionMessage(gameScore.total, solution);
+  }
+}
+
+function solutionMessage(seed, solution) {
+  // display a random message based on a true of false solution.
+  var trueMessages = [
+    "GOOD JOB!",
+    "DOING GREAT!",
+    "OMG!",
+    "SUCH WIN!",
+    "I APPRECIATE YOU",
+    "IMPRESSIVE",
+  ];
+
+  var falseMessages = ["OH NO!", "BETTER LUCK NEXT TIME!", "PFTTTT", ":("];
+
+  var messages;
+
+  push();
+  textAlign(CENTER, CENTER);
+  fill(237, 34, 93);
+  textSize(36);
+  randomSeed(seed * 10000);
+
   if (solution === true) {
     background(255);
+    messages = trueMessages;
   } else if (solution === false) {
     background(0);
+    messages = falseMessages;
   }
+
+  text(messages[parseInt(random(messages.length), 10)], width / 2, height / 2);
+  pop();
 }
 
 function displayGameOver(score) {
@@ -75,7 +108,7 @@ function getGameScore(score) {
   return {
     win: wins,
     loss: losses,
-    total: total
+    total: total,
   };
 }
 
@@ -117,18 +150,43 @@ function GuessItem(x, y, scl) {
   this.x = x;
   this.y = y;
   this.scale = scl;
-  this.scaleIncrement = 0.5;
+  this.scaleIncrement = 0.25;
+  this.clr = 0;
   this.content = getContent();
   this.alpha = 255;
-  this.alphaDecrement = 3;
+  this.alphaDecrement = 6;
   this.solved = null;
+  this.contentMap = {
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
+    0: "zero",
+  };
+  this.colors = [
+    [63, 184, 175],
+    [127, 199, 175],
+    [218, 216, 167],
+    [255, 158, 157],
+    [255, 61, 127],
+    [55, 191, 211],
+    [159, 223, 82],
+    [234, 209, 43],
+    [250, 69, 8],
+    [194, 13, 0],
+  ];
 
   function getContent() {
     // generate a random integer in between 0 and 9
     return String(parseInt(random(10), 10));
   }
 
-  this.solve = function(input) {
+  this.solve = function (input) {
     // check to see if the given input is equivalent to the content.
     // set solved to the corresponding value.
     var solved;
@@ -141,16 +199,14 @@ function GuessItem(x, y, scl) {
     return solved;
   };
 
-  this.render = function() {
+  this.render = function () {
     push();
-    if (this.solved === false) {
-      return;
-    }
-    fill(0, this.alpha);
+    fill(this.clr, this.alpha);
     textAlign(CENTER, CENTER);
     translate(this.x, this.y);
     scale(this.scale);
-    text(this.content, 0, 0);
+    // display the word for the corresponding number
+    text(this.contentMap[this.content], 0, 0);
     // increase the scale value by the increment value with each render
     this.scale = this.scale + this.scaleIncrement;
     // decrease the alpha value by the decrement value with each render
